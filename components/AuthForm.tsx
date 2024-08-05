@@ -6,12 +6,15 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button"
-import {Form} from "@/components/ui/form"
+import { Form } from "@/components/ui/form"
 import CustomInput from "@/components/CustomInput";
-import {authFormSchema} from "@/lib/utils";
-import {Loader2} from "lucide-react";
+import { authFormSchema } from "@/lib/utils";
+import { Loader2 } from "lucide-react";
+import {useRouter} from "next/navigation";
+import {signIn, signUp} from "@/lib/actions/user.actions";
 
 const AuthForm = ({type} : { type: string}) => {
+    const router = useRouter();
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const formSchema = authFormSchema(type);
@@ -25,12 +28,25 @@ const AuthForm = ({type} : { type: string}) => {
     })
 
         // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
-            // Do something with the form values.
-            // ✅ This will be type-safe and validated.
+    const onSubmit = async (data: z.infer<typeof formSchema>) => {
         setIsLoading(true);
-        console.log(values)
-        setIsLoading(false);
+        try {
+            if(type === 'sign-up'){
+                const newUser = await signUp(data);
+                setUser(newUser)
+            }
+            if(type === 'sign-in'){
+                const res = await signIn({
+                    email: data.email,
+                    password: data.password
+                })
+                if(res) router.push("/");
+            }
+        }catch (e){
+            console.log(e);
+        }finally {
+            setIsLoading(false);
+        }
     }
 
     return (
@@ -74,7 +90,10 @@ const AuthForm = ({type} : { type: string}) => {
                                     <CustomInput control={form.control} name="state" label="State" placeholder="Example: BC" />
                                     <CustomInput control={form.control} name="postalCode" label="Postal Code" placeholder="Example: V1L 3E5" />
                                     </div>
+                                    <div className="flex gap-4">
+                                    <CustomInput control={form.control} name="city" label="City" placeholder="Example: Vancouver" />
                                     <CustomInput control={form.control} name="dateOfBirth" label="Date of Birth" placeholder="YYYY-MM-DD" />
+                                    </div>
                                 </>
                             )}
                             <CustomInput control={form.control} name="email" label="Email" placeholder="Please enter your email." />

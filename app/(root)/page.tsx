@@ -51,7 +51,7 @@ const Home = async ({ searchParams: { id, page }} : SearchParamProps) => {
                 banks={accountsData?.slice(0, 2)}
             />
         </section>
-    );
-};
+    )
+}
 
-export default Home;
+export default Home

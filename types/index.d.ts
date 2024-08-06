@@ -93,11 +93,11 @@ declare type Bank = {
 };
 
 declare type AccountTypes =
-  | "depository"
-  | "credit"
-  | "loan "
-  | "investment"
-  | "other";
+    | "depository"
+    | "credit"
+    | "loan "
+    | "investment"
+    | "other";
 
 declare type Category = "Food and Drink" | "Travel" | "Transfer";
 
@@ -211,7 +211,7 @@ declare interface TotalBalanceBoxProps {
 
 declare interface FooterProps {
   user: User;
-  type? : 'mobile' | 'desktop';
+  type?: 'mobile' | 'desktop'
 }
 
 declare interface RightSidebarProps {

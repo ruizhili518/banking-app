@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { createLinkToken, exchangePublicToken } from '@/lib/actions/user.actions';
 import Image from 'next/image';
 
-const PlaidLink = ({user, variant}: PlaidLinkProps) => {
+const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
     const router = useRouter();
 
     const [token, setToken] = useState('');
@@ -64,11 +64,11 @@ const PlaidLink = ({user, variant}: PlaidLinkProps) => {
                         width={24}
                         height={24}
                     />
-                    <p className='hiddenl text-[16px] font-semibold text-black-2 xl:block'>Connect bank</p>
+                    <p className='text-[16px] font-semibold text-black-2'>Connect bank</p>
                 </Button>
             )}
         </>
-    );
-};
+    )
+}
 
-export default PlaidLink;
+export default PlaidLink

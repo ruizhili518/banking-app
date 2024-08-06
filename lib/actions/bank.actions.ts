@@ -1,12 +1,7 @@
 "use server";
 
 import {
-    ACHClass,
     CountryCode,
-    TransferAuthorizationCreateRequest,
-    TransferCreateRequest,
-    TransferNetwork,
-    TransferType,
 } from "plaid";
 
 import { plaidClient } from "../plaid";
@@ -45,7 +40,7 @@ export const getAccounts = async ({ userId }: getAccountsProps) => {
                     type: accountData.type as string,
                     subtype: accountData.subtype! as string,
                     appwriteItemId: bank.$id,
-                    sharaebleId: bank.shareableId,
+                    shareableId: bank.shareableId,
                 };
 
                 return account;
@@ -138,9 +133,9 @@ export const getInstitution = async ({
             country_codes: ["US"] as CountryCode[],
         });
 
-        const institution = institutionResponse.data.institution;
+        const intitution = institutionResponse.data.institution;
 
-        return parseStringify(institution);
+        return parseStringify(intitution);
     } catch (error) {
         console.error("An error occurred while getting the accounts:", error);
     }

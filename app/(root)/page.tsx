@@ -27,7 +27,7 @@ const Home = async ({ searchParams: { id, page }} : SearchParamProps) => {
                         type="greeting"
                         title="Welcome"
                         user={loggedIn?.firstName || 'Guest'}
-                        subtext="Access and manage your account and transactions efficiently."
+                        subtext="Manage all your banks in just one app with a few clicks."
                     />
 
                     <TotalBalanceBox
